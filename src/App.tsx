@@ -48,7 +48,7 @@ const Modal = ({ isOpen, onClose, title, content, icon: Icon }: ModalProps) => {
         className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" 
         onClick={onClose}
       ></div>
-      <div className="relative bg-slate-900 border-2 border-[#ff0055] rounded-2xl max-w-2xl w-full shadow-2xl transform transition-all flex flex-col overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div className="relative bg-slate-900 border-2 border-[#9333ea] rounded-2xl max-w-2xl w-full shadow-2xl transform transition-all flex flex-col overflow-hidden animate-in fade-in zoom-in duration-200">
         
         {/* Modal Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-800 bg-slate-900/50">
@@ -106,17 +106,17 @@ const Navbar = () => {
                 <span className="text-white font-black text-xl tracking-tighter italic uppercase" style={{ fontFamily: 'Arial, sans-serif' }}>
                     PROJECT <span className="text-[#ff0055]">PECAN</span>
                 </span>
-                <span className="text-[#ff0055] text-[0.6rem] tracking-[0.2em] font-bold uppercase">
+                <span className="text-[#9333ea] text-[0.6rem] tracking-[0.2em] font-bold uppercase">
                     Data Acquisition
                 </span>
             </div>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              <a href="#features" className="text-slate-300 hover:text-[#ff0055] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Features</a>
-              <a href="#demo" className="text-slate-300 hover:text-[#ff0055] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Dashboard</a>
-              <a href="#specs" className="text-slate-300 hover:text-[#ff0055] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Specs</a>
-              <button className="bg-[#ff0055] hover:bg-[#d90049] text-white px-6 py-2 rounded-sm skew-x-[-10deg] text-sm font-bold transition-all shadow-[0_0_10px_rgba(255,0,85,0.4)] hover:shadow-[0_0_20px_rgba(255,0,85,0.6)]">
+              <a href="#features" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Features</a>
+              <a href="#demo" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Dashboard</a>
+              <a href="#specs" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Specs</a>
+              <button className="bg-gradient-to-r from-[#9333ea] to-[#ff0055] hover:from-[#7e22ce] hover:to-[#d90049] text-white px-6 py-2 rounded-sm skew-x-[-10deg] text-sm font-bold transition-all shadow-[0_0_10px_rgba(147,51,234,0.4)] hover:shadow-[0_0_20px_rgba(147,51,234,0.6)]">
                 <span className="block skew-x-[10deg] uppercase">Pre-order</span>
               </button>
             </div>
@@ -134,7 +134,7 @@ const Navbar = () => {
             <a href="#features" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
             <a href="#demo" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Live Demo</a>
             <a href="#specs" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Specs</a>
-            <button className="w-full text-left bg-[#ff0055] hover:bg-[#d90049] text-white px-3 py-2 rounded-md text-base font-medium">
+            <button className="w-full text-left bg-[#9333ea] hover:bg-[#7e22ce] text-white px-3 py-2 rounded-md text-base font-medium">
               Pre-order
             </button>
           </div>
@@ -149,32 +149,32 @@ const Hero = () => {
     <div className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 bg-[#0B0C10] overflow-hidden min-h-[90vh] flex items-center">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-[#ff0055]/5 blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-[#9333ea]/5 blur-[120px] rounded-full pointer-events-none"></div>
       </div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center">
         <div className="lg:w-1/2 lg:pr-12 text-center lg:text-left mb-12 lg:mb-0">
-          <div className="inline-flex items-center px-3 py-1 rounded-sm bg-[#ff0055]/10 text-[#ff0055] text-sm font-bold mb-6 border-l-4 border-[#ff0055] uppercase tracking-widest">
+          <div className="inline-flex items-center px-3 py-1 rounded-sm bg-[#9333ea]/10 text-[#9333ea] text-sm font-bold mb-6 border-l-4 border-[#9333ea] uppercase tracking-widest">
             <Wifi className="w-4 h-4 mr-2" />
             Wireless Telemetry
           </div>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white tracking-tighter italic mb-6 uppercase leading-none">
             Track Data <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-purple-600">Unteathered</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9333ea] to-[#ff0055]">Unteathered</span>
           </h1>
           <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0 font-mono">
             Project Pecan replaces expensive legacy hardware. 
             ESP32-powered. React-based. WebSocket streaming. 
-            <span className="text-[#ff0055]"> The new standard for FSAE & Automotive testing.</span>
+            <span className="text-[#9333ea]"> The new standard for FSAE & Automotive testing.</span>
           </p>
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-            <button className="group relative px-8 py-4 bg-[#ff0055] hover:bg-[#d90049] text-white text-lg font-bold shadow-[0_0_20px_rgba(255,0,85,0.3)] transition-all overflow-hidden skew-x-[-10deg]">
+            <button className="group relative px-8 py-4 bg-gradient-to-r from-[#9333ea] to-[#ff0055] hover:from-[#7e22ce] hover:to-[#d90049] text-white text-lg font-bold shadow-[0_0_20px_rgba(147,51,234,0.3)] transition-all overflow-hidden skew-x-[-10deg]">
               <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out skew-x-[10deg]"></div>
               <span className="flex items-center justify-center skew-x-[10deg] uppercase">
                 Initialize System <ArrowRight className="ml-2 h-5 w-5" />
               </span>
             </button>
-            <button className="px-8 py-4 bg-transparent hover:bg-slate-800/50 text-slate-300 rounded-sm font-bold text-lg border border-slate-700 hover:border-[#ff0055] transition-all flex items-center justify-center skew-x-[-10deg]">
+            <button className="px-8 py-4 bg-transparent hover:bg-slate-800/50 text-slate-300 rounded-sm font-bold text-lg border border-slate-700 hover:border-[#9333ea] transition-all flex items-center justify-center skew-x-[-10deg]">
               <span className="flex items-center justify-center skew-x-[10deg] uppercase">
                 <Github className="mr-2 h-5 w-5" /> Source Code
               </span>
@@ -312,7 +312,7 @@ const Features = () => {
     <div id="features" className="py-24 bg-[#0B0C10]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-sm text-[#ff0055] font-bold tracking-[0.2em] uppercase mb-3">System Capabilities</h2>
+          <h2 className="text-sm text-[#9333ea] font-bold tracking-[0.2em] uppercase mb-3">System Capabilities</h2>
           <p className="mt-2 text-3xl md:text-4xl font-black uppercase italic text-white">
             Why Switch to Pecan?
           </p>
@@ -379,25 +379,25 @@ const Comparison = () => {
           </div>
 
           {/* Pecan */}
-          <div className="bg-[#0B0C10] rounded-sm p-8 border-2 border-[#ff0055] shadow-[0_0_30px_rgba(255,0,85,0.1)] relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-[#ff0055] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">
+          <div className="bg-[#0B0C10] rounded-sm p-8 border-2 border-[#9333ea] shadow-[0_0_30px_rgba(147,51,234,0.1)] relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-[#9333ea] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">
               Team Choice
             </div>
             <h3 className="text-2xl font-bold text-white mb-6 flex items-center uppercase italic">
-              <Wifi className="w-6 h-6 mr-2 text-[#ff0055]" />
+              <Wifi className="w-6 h-6 mr-2 text-[#9333ea]" />
               Project Pecan
             </h3>
             <ul className="space-y-4 font-mono text-sm">
               <li className="flex items-center text-white">
-                <CheckCircle2 className="w-5 h-5 text-[#ff0055] mr-3" />
+                <CheckCircle2 className="w-5 h-5 text-[#9333ea] mr-3" />
                 BOM &lt; $50
               </li>
               <li className="flex items-center text-white">
-                <CheckCircle2 className="w-5 h-5 text-[#ff0055] mr-3" />
+                <CheckCircle2 className="w-5 h-5 text-[#9333ea] mr-3" />
                 Wireless Range
               </li>
               <li className="flex items-center text-white">
-                <CheckCircle2 className="w-5 h-5 text-[#ff0055] mr-3" />
+                <CheckCircle2 className="w-5 h-5 text-[#9333ea] mr-3" />
                 Plug & Play
               </li>
             </ul>
@@ -420,15 +420,15 @@ const TechnicalSpecs = () => {
             </p>
             
             <div className="space-y-6 font-mono">
-              <div className="border-l-2 border-[#ff0055] pl-4">
+              <div className="border-l-2 border-[#9333ea] pl-4">
                 <h4 className="text-white font-bold text-sm uppercase tracking-wider">MCU</h4>
                 <p className="text-slate-400">ESP32-WROOM-32E (Dual Core 240MHz)</p>
               </div>
-              <div className="border-l-2 border-slate-700 pl-4 hover:border-[#ff0055] transition-colors">
+              <div className="border-l-2 border-slate-700 pl-4 hover:border-[#9333ea] transition-colors">
                 <h4 className="text-white font-bold text-sm uppercase tracking-wider">Transceiver</h4>
                 <p className="text-slate-400">SN65HVD230 (3.3V CAN)</p>
               </div>
-              <div className="border-l-2 border-slate-700 pl-4 hover:border-[#ff0055] transition-colors">
+              <div className="border-l-2 border-slate-700 pl-4 hover:border-[#9333ea] transition-colors">
                 <h4 className="text-white font-bold text-sm uppercase tracking-wider">Interface</h4>
                 <p className="text-slate-400">WebSockets over 802.11 b/g/n</p>
               </div>
@@ -436,16 +436,16 @@ const TechnicalSpecs = () => {
           </div>
           <div className="relative flex justify-center">
              <div className="w-full max-w-md aspect-video bg-[#15161c] border border-slate-800 relative p-6 shadow-2xl">
-                 <div className="absolute top-2 left-2 text-[#ff0055] text-xs font-mono">PCB_V1.2</div>
+                 <div className="absolute top-2 left-2 text-[#9333ea] text-xs font-mono">PCB_V1.2</div>
                  {/* Stylized PCB Art */}
                  <div className="w-full h-full border border-dashed border-slate-700 flex items-center justify-center relative overflow-hidden">
-                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[#ff0055] blur-[60px] opacity-20"></div>
+                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[#9333ea] blur-[60px] opacity-20"></div>
                      <Cpu className="w-24 h-24 text-slate-700 relative z-10" />
                      
                      {/* Traces */}
                      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M 50 50 L 100 50 L 150 100" stroke="#ff0055" strokeWidth="2" fill="none" />
-                        <path d="M 300 200 L 250 200 L 200 150" stroke="#ff0055" strokeWidth="2" fill="none" />
+                        <path d="M 50 50 L 100 50 L 150 100" stroke="#9333ea" strokeWidth="2" fill="none" />
+                        <path d="M 300 200 L 250 200 L 200 150" stroke="#9333ea" strokeWidth="2" fill="none" />
                      </svg>
                  </div>
              </div>
@@ -463,7 +463,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
-              <span className="text-white font-black text-lg italic">PROJECT <span className="text-[#ff0055]">PECAN</span></span>
+              <span className="text-white font-black text-lg italic">PROJECT <span className="text-[#9333ea]">PECAN</span></span>
             </div>
             <p className="text-slate-500 text-xs uppercase tracking-wide">
               Western Formula Racing <br/> Data Acquisition Division
@@ -473,8 +473,8 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-widest">Product</h4>
             <ul className="space-y-2 text-sm text-slate-400 font-mono">
-              <li><a href="#" className="hover:text-[#ff0055]">Hardware</a></li>
-              <li><a href="#" className="hover:text-[#ff0055]">Web App</a></li>
+              <li><a href="#" className="hover:text-[#9333ea]">Hardware</a></li>
+              <li><a href="#" className="hover:text-[#9333ea]">Web App</a></li>
             </ul>
           </div>
         </div>
@@ -488,7 +488,7 @@ const Footer = () => {
 
 const App = () => {
   return (
-    <div className="bg-[#0B0C10] min-h-screen text-slate-200 font-sans selection:bg-[#ff0055] selection:text-white">
+    <div className="bg-[#0B0C10] min-h-screen text-slate-200 font-sans selection:bg-[#9333ea] selection:text-white">
       <Navbar />
       <Hero />
       <Features />
