@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Wifi, 
   Zap, 
@@ -107,7 +107,7 @@ const Navbar = () => {
                     PROJECT <span className="text-[#ff0055]">PECAN</span>
                 </span>
                 <span className="text-[#9333ea] text-[0.6rem] tracking-[0.2em] font-bold uppercase">
-                    Data Acquisition
+                    A Western Formula Racing Open Source Project
                 </span>
             </div>
           </div>
@@ -141,6 +141,161 @@ const Navbar = () => {
         </div>
       )}
     </nav>
+  );
+};
+
+const ConsoleAnimation = () => {
+  const [lines, setLines] = useState<Array<{text: string, color: string, id: number}>>([]);
+  const [connectionText, setConnectionText] = useState("");
+  const [connectionStatus, setConnectionStatus] = useState<'hidden' | 'typing' | 'flashing' | 'connected'>('hidden');
+
+  useEffect(() => {
+    let isMounted = true;
+    
+    const startSequence = async () => {
+      // Delay start
+      await new Promise(r => setTimeout(r, 500));
+      if (!isMounted) return;
+
+      // Typing
+      setConnectionStatus('typing');
+      const targetText = "> CONNECTING: ws://192.168.4.1";
+      for (let i = 0; i <= targetText.length; i++) {
+        if (!isMounted) return;
+        setConnectionText(targetText.slice(0, i));
+        await new Promise(r => setTimeout(r, 30)); 
+      }
+
+      // Flashing
+      if (!isMounted) return;
+      setConnectionStatus('flashing');
+      await new Promise(r => setTimeout(r, 1500));
+
+      // Connected
+      if (!isMounted) return;
+      setConnectionStatus('connected');
+      setConnectionText("> CONNECTED: ws://192.168.4.1");
+
+      // Stream Data
+      const messages = [
+         { text: "> CAN_ID: 0x400 [DATA: 0A 2F 44 ...]", color: "text-slate-400" },
+         { text: "> CAN_ID: 0x401 [DATA: FF 00 12 ...]", color: "text-slate-400" },
+         { text: "> CAN_ID: 0x402 [DATA: 00 00 00 ...]", color: "text-slate-400" },
+         { text: "> CAN_ID: 0x400 [DATA: 0B 2F 45 ...]", color: "text-slate-400" },
+         { text: "> CAN_ID: 0x305 [DATA: AA BB CC ...]", color: "text-slate-400" },
+      ];
+
+      for (let i = 0; i < messages.length; i++) {
+        await new Promise(r => setTimeout(r, 600)); // Delay between messages
+        if (!isMounted) return;
+        setLines(prev => [...prev, { ...messages[i], id: i }]);
+      }
+    };
+
+    startSequence();
+
+    return () => { isMounted = false; };
+  }, []);
+
+  return (
+    <div className="col-span-2 bg-[#0B0C10] p-4 rounded border border-slate-800 h-32 overflow-hidden relative text-xs font-mono">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] to-transparent z-10 pointer-events-none"></div>
+        <div className="space-y-1 opacity-80 h-full overflow-y-auto">
+            {connectionStatus !== 'hidden' && (
+                 <div className={`${
+                    connectionStatus === 'connected' ? 'text-green-500' : 
+                    connectionStatus === 'flashing' ? 'text-yellow-500 animate-pulse' : 'text-yellow-500'
+                 }`}>
+                    {connectionText}
+                    {connectionStatus === 'typing' && <span className="animate-pulse">_</span>}
+                 </div>
+            )}
+            {lines.map((line) => (
+                <div key={line.id} className={line.color + " animate-in slide-in-from-left-2 duration-300 fade-in"}>
+                    {line.text}
+                </div>
+            ))}
+        </div>
+    </div>
+  );
+};
+
+const LiveDashboard = () => {
+  const [rpm, setRpm] = useState(8450);
+  const [temp, setTemp] = useState(42.5);
+  const [soc, setSoc] = useState(88);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRpm(prev => {
+        const delta = Math.floor(Math.random() * 150) - 75;
+        const newVal = prev + delta;
+        // Clamp to realistic range (8200 - 8700)
+        return Math.min(Math.max(newVal, 8200), 8700);
+      });
+
+      setTemp(prev => {
+         const delta = (Math.random() * 0.6) - 0.3;
+         return Number((Math.max(40, Math.min(45, prev + delta))).toFixed(1));
+      });
+      
+      // SOC slightly fluctuates or drops rarely
+      setSoc(prev => {
+         if (Math.random() > 0.98) return Math.max(0, prev - 1); 
+         return prev;
+      });
+
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+      <div className="w-full relative rounded-lg bg-[#15161c] border border-slate-800 shadow-2xl overflow-hidden transform rotate-y-[-5deg] hover:rotate-y-0 transition-transform duration-500">
+            {/* Header Bar */}
+            <div className="bg-[#0f1014] px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                 <span className="text-[#ff0055] font-bold uppercase tracking-widest text-xs">Live Telemetry</span>
+                 <div className="h-4 w-[1px] bg-slate-700"></div>
+                 <span className="text-slate-500 text-xs font-mono">ESP32_CLIENT_01</span>
+              </div>
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 rounded-full bg-slate-700"></div>
+                <div className="w-2 h-2 rounded-full bg-slate-700"></div>
+              </div>
+            </div>
+            
+            {/* Data Grid */}
+            <div className="p-6 grid grid-cols-2 gap-4 font-mono">
+                {/* RPM Gauge Simulation */}
+                <div className="col-span-2 bg-[#0B0C10] p-4 rounded border border-slate-800 relative overflow-hidden">
+                    <div className="text-slate-500 text-xs uppercase mb-1">Engine Speed</div>
+                    <div className="text-4xl font-bold text-white flex items-baseline">
+                        {rpm.toLocaleString()} <span className="text-sm text-slate-500 ml-2">RPM</span>
+                    </div>
+                    <div className="w-full bg-slate-800 h-2 mt-4 rounded-full overflow-hidden">
+                        <div 
+                            className="bg-gradient-to-r from-blue-600 to-[#ff0055] h-full transition-all duration-200 ease-out"
+                            style={{ width: `${(rpm / 10000) * 100}%` }}
+                        ></div>
+                    </div>
+                </div>
+
+                {/* Stat Box 1 */}
+                <div className="bg-[#0B0C10] p-4 rounded border border-slate-800">
+                    <div className="text-slate-500 text-xs uppercase mb-1">Battery Temp</div>
+                    <div className="text-2xl font-bold text-[#ff0055] transition-all duration-500">{temp.toFixed(1)}°C</div>
+                </div>
+
+                {/* Stat Box 2 */}
+                <div className="bg-[#0B0C10] p-4 rounded border border-slate-800">
+                    <div className="text-slate-500 text-xs uppercase mb-1">SOC</div>
+                    <div className="text-2xl font-bold text-blue-400">{soc}%</div>
+                </div>
+
+                 {/* Console Log */}
+                <ConsoleAnimation />
+            </div>
+          </div>
   );
 };
 
@@ -183,65 +338,12 @@ const Hero = () => {
         </div>
         
         <div className="lg:w-1/2 w-full perspective-1000">
-          {/* Mock UI - Dashboard Style */}
-          <div className="relative rounded-lg bg-[#15161c] border border-slate-800 shadow-2xl overflow-hidden transform rotate-y-[-5deg] hover:rotate-y-0 transition-transform duration-500">
-            {/* Header Bar */}
-            <div className="bg-[#0f1014] px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                 <span className="text-[#ff0055] font-bold uppercase tracking-widest text-xs">Live Telemetry</span>
-                 <div className="h-4 w-[1px] bg-slate-700"></div>
-                 <span className="text-slate-500 text-xs font-mono">ESP32_CLIENT_01</span>
-              </div>
-              <div className="flex space-x-1">
-                <div className="w-2 h-2 rounded-full bg-slate-700"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-700"></div>
-              </div>
-            </div>
-            
-            {/* Data Grid */}
-            <div className="p-6 grid grid-cols-2 gap-4 font-mono">
-                {/* RPM Gauge Simulation */}
-                <div className="col-span-2 bg-[#0B0C10] p-4 rounded border border-slate-800 relative overflow-hidden">
-                    <div className="text-slate-500 text-xs uppercase mb-1">Engine Speed</div>
-                    <div className="text-4xl font-bold text-white flex items-baseline">
-                        8,450 <span className="text-sm text-slate-500 ml-2">RPM</span>
-                    </div>
-                    <div className="w-full bg-slate-800 h-2 mt-4 rounded-full overflow-hidden">
-                        <div className="bg-gradient-to-r from-blue-600 to-[#ff0055] w-[85%] h-full"></div>
-                    </div>
-                </div>
-
-                {/* Stat Box 1 */}
-                <div className="bg-[#0B0C10] p-4 rounded border border-slate-800">
-                    <div className="text-slate-500 text-xs uppercase mb-1">Battery Temp</div>
-                    <div className="text-2xl font-bold text-[#ff0055]">42.5°C</div>
-                </div>
-
-                {/* Stat Box 2 */}
-                <div className="bg-[#0B0C10] p-4 rounded border border-slate-800">
-                    <div className="text-slate-500 text-xs uppercase mb-1">SOC</div>
-                    <div className="text-2xl font-bold text-blue-400">88%</div>
-                </div>
-
-                 {/* Console Log */}
-                <div className="col-span-2 bg-[#0B0C10] p-4 rounded border border-slate-800 h-32 overflow-hidden relative font-xs">
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] to-transparent z-10"></div>
-                    <div className="space-y-1 opacity-60">
-                        <div className="text-green-500"> {'>'} CONNECTED: ws://192.168.4.1</div>
-                        <div className="text-slate-400"> {'>'} CAN_ID: 0x400 [DATA: 0A 2F 44 ...]</div>
-                        <div className="text-slate-400"> {'>'} CAN_ID: 0x401 [DATA: FF 00 12 ...]</div>
-                        <div className="text-slate-400"> {'>'} CAN_ID: 0x402 [DATA: 00 00 00 ...]</div>
-                        <div className="text-slate-400"> {'>'} CAN_ID: 0x400 [DATA: 0B 2F 45 ...]</div>
-                    </div>
-                </div>
-            </div>
-          </div>
+          <LiveDashboard />
         </div>
       </div>
     </div>
   );
 };
-
 const FeatureCard = ({ icon: Icon, title, desc, onOpen }: FeatureCardProps) => (
   <div 
     onClick={onOpen}
@@ -466,7 +568,7 @@ const Footer = () => {
               <span className="text-white font-black text-lg italic">PROJECT <span className="text-[#9333ea]">PECAN</span></span>
             </div>
             <p className="text-slate-500 text-xs uppercase tracking-wide">
-              Western Formula Racing <br/> Data Acquisition Division
+              Western Formula Racing <br/> Data Acquisition Subsystem
             </p>
           </div>
           {/* Links sections kept simple for brevity */}
