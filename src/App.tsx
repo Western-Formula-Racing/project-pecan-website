@@ -318,7 +318,7 @@ const Hero = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9333ea] to-[#ff0055]">Unteathered</span>
           </h1>
           <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0 font-mono">
-            Project Pecan replaces expensive legacy hardware. 
+            Project Pecan provides an open source alternative to existing hardware. 
             ESP32-powered. React-based. WebSocket streaming. 
             <span className="text-[#9333ea]"> The new standard for FSAE & Automotive testing.</span>
           </p>
@@ -467,7 +467,7 @@ const Comparison = () => {
             <ul className="space-y-4 font-mono text-sm">
               <li className="flex items-center text-slate-500">
                 <XCircle className="w-5 h-5 text-red-900 mr-3" />
-                Costly ($500+)
+                Costly
               </li>
               <li className="flex items-center text-slate-500">
                 <XCircle className="w-5 h-5 text-red-900 mr-3" />
@@ -475,7 +475,7 @@ const Comparison = () => {
               </li>
               <li className="flex items-center text-slate-500">
                 <XCircle className="w-5 h-5 text-red-900 mr-3" />
-                Driver Hell
+                Software Installation Required
               </li>
             </ul>
           </div>
