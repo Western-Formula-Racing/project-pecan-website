@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { 
   Wifi, 
   Zap, 
   Globe, 
   Cpu, 
-  Activity, 
   ArrowRight, 
   CheckCircle2, 
   XCircle, 
@@ -17,21 +16,30 @@ import {
   Maximize2
 } from 'lucide-react';
 
-// --- Styles & Constants ---
+// --- Interfaces ---
 
-// Defining the palette based on the uploaded image
-const COLORS = {
-  pink: '#ff0055', // The "DATA ACQUISITION" color
-  darkBg: '#0B0C10', // Deep background
-  cardBg: '#1F2833', // Slightly lighter for cards
-  textMain: '#C5C6C7', // Light grey
-  textHighlight: '#66FCF1', // Cyan/Blue pop (optional accent)
-  accentYellow: '#FDC500' // From the car icon
-};
+interface Feature {
+  icon: React.ElementType;
+  title: string;
+  desc: string;
+  fullDesc: string;
+}
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  content: string;
+  icon: React.ElementType;
+}
+
+interface FeatureCardProps extends Feature {
+  onOpen: () => void;
+}
 
 // --- Components ---
 
-const Modal = ({ isOpen, onClose, title, content, icon: Icon }) => {
+const Modal = ({ isOpen, onClose, title, content, icon: Icon }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -234,7 +242,7 @@ const Hero = () => {
   );
 };
 
-const FeatureCard = ({ icon: Icon, title, desc, fullDesc, onOpen }) => (
+const FeatureCard = ({ icon: Icon, title, desc, onOpen }: FeatureCardProps) => (
   <div 
     onClick={onOpen}
     className="bg-[#15161c] group p-6 rounded-xl border border-slate-800 hover:border-[#ff0055] transition-all cursor-pointer hover:-translate-y-1 relative overflow-hidden"
@@ -259,9 +267,9 @@ const FeatureCard = ({ icon: Icon, title, desc, fullDesc, onOpen }) => (
 );
 
 const Features = () => {
-  const [selectedFeature, setSelectedFeature] = useState(null);
+  const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
 
-  const featuresList = [
+  const featuresList: Feature[] = [
     {
       icon: Wifi,
       title: "True Wireless",
