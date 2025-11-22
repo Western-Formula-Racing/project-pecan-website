@@ -141,9 +141,6 @@ const Navbar = () => {
             <a href="#features" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
             <a href="#demo" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Live Demo</a>
             <a href="#specs" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Specs</a>
-            <button className="w-full text-left bg-[#9333ea] hover:bg-[#7e22ce] text-white px-3 py-2 rounded-md text-base font-medium">
-              Pre-order
-            </button>
               <a
                 href="https://westernformularacing.org/Sponsors"
                 target="_blank"
@@ -333,7 +330,7 @@ const Hero = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9333ea] to-[#ff0055]">Unteathered</span>
           </h1>
           <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0 font-mono">
-            Project Pecan provides an open source alternative to existing hardware. 
+            Project Pecan provides an open source alternative to existing CAN diagnostic hardware. 
             ESP32-powered. React-based. WebSocket streaming. 
             <span className="text-[#9333ea]"> The new standard for FSAE & Automotive testing.</span>
           </p>
