@@ -116,9 +116,16 @@ const Navbar = () => {
               <a href="#features" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Features</a>
               <a href="#demo" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Dashboard</a>
               <a href="#specs" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Specs</a>
-              <button className="bg-gradient-to-r from-[#9333ea] to-[#ff0055] hover:from-[#7e22ce] hover:to-[#d90049] text-white px-6 py-2 rounded-sm skew-x-[-10deg] text-sm font-bold transition-all shadow-[0_0_10px_rgba(147,51,234,0.4)] hover:shadow-[0_0_20px_rgba(147,51,234,0.6)]">
-                <span className="block skew-x-[10deg] uppercase">Pre-order</span>
-              </button>
+              {/* Sponsor (same highlighted style as former Start Now button) */}
+              <a
+                href="https://westernformularacing.org/Sponsors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-4 inline-block bg-gradient-to-r from-[#9333ea] to-[#ff0055] hover:from-[#7e22ce] hover:to-[#d90049] text-white px-6 py-2 rounded-sm skew-x-[-10deg] text-sm font-bold transition-all shadow-[0_0_10px_rgba(147,51,234,0.4)] hover:shadow-[0_0_20px_rgba(147,51,234,0.6)]"
+                aria-label="Sponsor Western Formula Racing"
+              >
+                <span className="block skew-x-[10deg] uppercase">Sponsor WFR</span>
+              </a>
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
@@ -137,6 +144,14 @@ const Navbar = () => {
             <button className="w-full text-left bg-[#9333ea] hover:bg-[#7e22ce] text-white px-3 py-2 rounded-md text-base font-medium">
               Pre-order
             </button>
+              <a
+                href="https://westernformularacing.org/Sponsors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full block text-left mt-1 bg-gradient-to-r from-[#9333ea] to-[#ff0055] text-white px-3 py-2 rounded-md text-base font-medium skew-x-[-6deg]"
+              >
+                <span className="block skew-x-[6deg] uppercase">Sponsor WFR</span>
+              </a>
           </div>
         </div>
       )}
@@ -311,10 +326,10 @@ const Hero = () => {
         <div className="lg:w-1/2 lg:pr-12 text-center lg:text-left mb-12 lg:mb-0">
           <div className="inline-flex items-center px-3 py-1 rounded-sm bg-[#9333ea]/10 text-[#9333ea] text-sm font-bold mb-6 border-l-4 border-[#9333ea] uppercase tracking-widest">
             <Wifi className="w-4 h-4 mr-2" />
-            Wireless Telemetry
+            Wireless CAN Diagnostic
           </div>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white tracking-tighter italic mb-6 uppercase leading-none">
-            Track Data <br/>
+            Vehicle Data <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9333ea] to-[#ff0055]">Unteathered</span>
           </h1>
           <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0 font-mono">
@@ -375,14 +390,14 @@ const Features = () => {
     {
       icon: Wifi,
       title: "True Wireless",
-      desc: "ESP32-powered telemetry. Analyze data from across the track without cables.",
+      desc: "ESP32-powered telemetry. Analyze data without cables.",
       fullDesc: "Utilizing the ESP32's dual-core architecture, Project Pecan creates a dedicated high-bandwidth WiFi Access Point. Connect your laptop or tablet directly to the car's network. We've tested stable streaming at ranges up to 50 meters in noisy RF environments, perfect for pit lane diagnostics or dyno runs."
     },
     {
       icon: Globe,
       title: "Browser Native",
       desc: "Zero installs. React-based analyzer suite works in Chrome, Firefox, or Edge.",
-      fullDesc: "Forget downloading 500MB driver packages or proprietary Windows-only software. Project Pecan serves the entire analysis suite directly from the hardware or a cloud host. If you have a modern browser, you have a full CAN analyzer. Compatible with Linux, macOS, Windows, Android, and iOS."
+      fullDesc: "Forget downloading 500MB packages or Windows-only software. Project Pecan serves the entire analysis suite directly from the hardware or a cloud host. If you have a modern browser, you have a full CAN analyzer. Compatible with Linux, macOS, Windows, Android, and iOS."
     },
     {
       icon: Zap,
