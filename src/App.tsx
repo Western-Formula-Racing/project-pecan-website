@@ -119,7 +119,7 @@ const Navbar = () => {
               <a href="#specs" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Specs</a>
               {/* Sponsor (same highlighted style as former Start Now button) */}
               <a
-                href="https://westernformularacing.org/Sponsors"
+                href="https://www.westernconnect.ca/site/SPageNavigator/donation/give.html?NONCE_TOKEN=08853BC19A7AEC0FAC553043933F1F55&utm_source=redirect&designee=5882"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-4 inline-block bg-gradient-to-r from-[#9333ea] to-[#ff0055] hover:from-[#7e22ce] hover:to-[#d90049] text-white px-6 py-2 rounded-sm skew-x-[-10deg] text-sm font-bold transition-all shadow-[0_0_10px_rgba(147,51,234,0.4)] hover:shadow-[0_0_20px_rgba(147,51,234,0.6)]"
