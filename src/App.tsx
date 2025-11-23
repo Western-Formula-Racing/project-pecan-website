@@ -284,7 +284,7 @@ const LiveDashboard = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setRpm(prev => {
-        const delta = Math.floor(Math.random() * 150) - 75;
+        const delta = Math.floor(Math.random() * 200) - 100;
         const newVal = prev + delta;
         // Clamp to realistic range (8200 - 8700)
         const clamped = Math.min(Math.max(newVal, 8200), 8700);
@@ -297,15 +297,11 @@ const LiveDashboard = () => {
          return Number((Math.max(40, Math.min(45, prev + delta))).toFixed(1));
       });
       
-      // Throttle correlates with RPM and temp
-      setThrottle(() => {
-         // Base throttle on RPM (normalized to 0-100%)
-         const rpmFactor = ((rpmRef.current - 8200) / (8700 - 8200)) * 60;
-         // Add temperature influence (higher temp = more throttle)
-         const tempFactor = ((temp - 40) / (45 - 40)) * 30;
-         // Slight random variation
-         const randomFactor = (Math.random() * 10) - 5;
-         const newThrottle = Math.round(Math.max(0, Math.min(100, rpmFactor + tempFactor + randomFactor)));
+      // Throttle is more independent now
+      setThrottle(prev => {
+         // Random walk with larger variations
+         const delta = Math.floor(Math.random() * 30) - 15;
+         const newThrottle = Math.round(Math.max(30, Math.min(95, prev + delta)));
          throttleRef.current = newThrottle;
          return newThrottle;
       });
