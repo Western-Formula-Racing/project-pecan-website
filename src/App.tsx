@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { 
   Wifi, 
   Zap, 
@@ -259,6 +260,26 @@ const LiveDashboard = () => {
   const [rpm, setRpm] = useState(8450);
   const [temp, setTemp] = useState(42.5);
   const [throttle, setThrottle] = useState(88);
+  const timeRef = useRef(10);
+  const rpmRef = useRef(8450);
+  const throttleRef = useRef(88);
+  const [chartData, setChartData] = useState<Array<{time: number, rpm: number, throttle: number}>>(() => {
+    // Initialize with 10 seconds of historical data
+    const initialData = [];
+    let currentRpm = 8450;
+    let currentThrottle = 88;
+    for (let i = 0; i < 10; i++) {
+      // Generate realistic fluctuating data
+      currentRpm = Math.min(Math.max(currentRpm + (Math.random() * 150 - 75), 8200), 8700);
+      currentThrottle = Math.min(Math.max(currentThrottle + (Math.random() * 20 - 10), 50), 100);
+      initialData.push({
+        time: i,
+        rpm: Math.round(currentRpm),
+        throttle: Math.round(currentThrottle)
+      });
+    }
+    return initialData;
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -266,7 +287,9 @@ const LiveDashboard = () => {
         const delta = Math.floor(Math.random() * 150) - 75;
         const newVal = prev + delta;
         // Clamp to realistic range (8200 - 8700)
-        return Math.min(Math.max(newVal, 8200), 8700);
+        const clamped = Math.min(Math.max(newVal, 8200), 8700);
+        rpmRef.current = clamped;
+        return clamped;
       });
 
       setTemp(prev => {
@@ -277,17 +300,32 @@ const LiveDashboard = () => {
       // Throttle correlates with RPM and temp
       setThrottle(() => {
          // Base throttle on RPM (normalized to 0-100%)
-         const rpmFactor = ((rpm - 8200) / (8700 - 8200)) * 60;
+         const rpmFactor = ((rpmRef.current - 8200) / (8700 - 8200)) * 60;
          // Add temperature influence (higher temp = more throttle)
          const tempFactor = ((temp - 40) / (45 - 40)) * 30;
          // Slight random variation
          const randomFactor = (Math.random() * 10) - 5;
          const newThrottle = Math.round(Math.max(0, Math.min(100, rpmFactor + tempFactor + randomFactor)));
+         throttleRef.current = newThrottle;
          return newThrottle;
       });
 
     }, 200);
     return () => clearInterval(interval);
+  }, []);
+
+  // Update chart data every second
+  useEffect(() => {
+    const chartInterval = setInterval(() => {
+      setChartData(prev => {
+        const currentTime = timeRef.current;
+        timeRef.current += 1;
+        const newData = [...prev, { time: currentTime, rpm: rpmRef.current, throttle: throttleRef.current }];
+        // Keep last 20 data points
+        return newData.slice(-20);
+      });
+    }, 1000);
+    return () => clearInterval(chartInterval);
   }, []);
 
   return (
@@ -335,6 +373,65 @@ const LiveDashboard = () => {
 
                  {/* Console Log */}
                 <ConsoleAnimation />
+
+                {/* Live Chart */}
+                <div className="col-span-2 bg-[#0B0C10] p-4 rounded border border-slate-800 h-48">
+                    <div className="text-slate-500 text-xs uppercase mb-3">Live Telemetry</div>
+                    <ResponsiveContainer width="100%" height="85%">
+                        <LineChart data={chartData}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                            <XAxis 
+                                dataKey="time" 
+                                stroke="#64748b" 
+                                tick={{ fill: '#64748b', fontSize: 10 }}
+                                label={{ value: 'Time (s)', position: 'insideBottom', offset: -5, fill: '#64748b', fontSize: 10 }}
+                            />
+                            <YAxis 
+                                yAxisId="left"
+                                stroke="#3b82f6" 
+                                tick={{ fill: '#64748b', fontSize: 10 }}
+                                label={{ value: 'Throttle (%)', angle: -90, position: 'insideLeft', fill: '#3b82f6', fontSize: 10 }}
+                            />
+                            <YAxis 
+                                yAxisId="right"
+                                orientation="right"
+                                stroke="#ff0055" 
+                                tick={{ fill: '#64748b', fontSize: 10 }}
+                                label={{ value: 'RPM', angle: 90, position: 'insideRight', fill: '#ff0055', fontSize: 10 }}
+                                domain={[8000, 9000]}
+                            />
+                            <Tooltip 
+                                contentStyle={{ backgroundColor: '#0B0C10', border: '1px solid #334155', borderRadius: '4px' }}
+                                labelStyle={{ color: '#64748b', fontSize: 11 }}
+                                itemStyle={{ fontSize: 11 }}
+                            />
+                            <Legend 
+                                wrapperStyle={{ fontSize: 10 }}
+                                iconType="line"
+                            />
+                            <Line 
+                                yAxisId="left"
+                                type="monotone" 
+                                dataKey="throttle" 
+                                stroke="#3b82f6" 
+                                strokeWidth={2}
+                                dot={false}
+                                name="Throttle (%)"
+                                isAnimationActive={false}
+                            />
+                            <Line 
+                                yAxisId="right"
+                                type="monotone" 
+                                dataKey="rpm" 
+                                stroke="#ff0055" 
+                                strokeWidth={2}
+                                dot={false}
+                                name="RPM"
+                                isAnimationActive={false}
+                            />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
           </div>
   );
