@@ -266,7 +266,7 @@ const LiveDashboard = () => {
             {/* Header Bar */}
             <div className="bg-[#0f1014] px-4 py-3 border-b border-slate-800 flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                 <span className="text-[#ff0055] font-bold uppercase tracking-widest text-xs">Live Telemetry</span>
+                 <span className="text-[#ff0055] font-bold uppercase tracking-widest text-xs">Diagnostic Dashboard</span>
                  <div className="h-4 w-[1px] bg-slate-700"></div>
                  <span className="text-slate-500 text-xs font-mono">ESP32_CLIENT_01</span>
               </div>
@@ -400,18 +400,18 @@ const Features = () => {
       icon: Zap,
       title: "WebSocket Stream",
       desc: "Ultra-low latency binary protocol for high-frequency bus loads.",
-      fullDesc: "We don't just send JSON. We use a packed binary WebSocket protocol to ensure minimal overhead. This allows Project Pecan to visualize high-speed CAN buses (500kbps, 1Mbps) with minimal frame drops. The UI handles thousands of incoming frames per second using canvas-based rendering optimizations."
+      fullDesc: "We don't just send JSON. We use a packed binary WebSocket protocol to ensure minimal overhead. This allows Project Pecan to visualize high-speed CAN buses (500kbps, 1Mbps) with minimal frame drops. CAN frames are decoaded in the browser, freeing up the ESP32's resources."
     },
     {
       icon: Terminal,
       title: "Open Firmware",
-      desc: "Fully customizable ESP-IDF firmware. Add your own filters and protocols.",
-      fullDesc: "The heart of Project Pecan is built on the Espressif IoT Development Framework (ESP-IDF). We provide the full source code. Need to implement a custom ISO-TP transport layer? Need to filter specific IDs at the hardware level to save bandwidth? Fork the repo, flash the ESP32, and make it yours."
+      desc: "Fully customizable frontend and firmware. Add your own filters and protocols.",
+      fullDesc: "We provide the full source code for both the frontend and firmware. Need to implement a custom ISO-TP transport layer? Need to filter specific IDs at the hardware level to save bandwidth? Fork the repo, flash the ESP32, and make it yours."
     },
     {
       icon: Monitor,
       title: "Cross Platform",
-      desc: "Debug your vehicle from an iPad, Android phone, or Linux workstation.",
+      desc: "Debug your vehicle from an iPad, phone, or laptop.",
       fullDesc: "Because the client is just a website, your diagnostic tool is whatever device you have in your pocket. Mechanics can use tablets to toggle outputs while walking around the car. Engineers can use multi-monitor setups to view complex graphs. Responsiveness is built-in from day one."
     },
     {
@@ -474,7 +474,7 @@ const Comparison = () => {
           <div className="bg-[#0B0C10] rounded-sm p-8 border border-slate-800 opacity-60 hover:opacity-80 transition-opacity">
             <h3 className="text-2xl font-bold text-slate-400 mb-6 flex items-center uppercase">
               <Cable className="w-6 h-6 mr-2" />
-              Standard Tools
+              Existing Tools
             </h3>
             <ul className="space-y-4 font-mono text-sm">
               <li className="flex items-center text-slate-500">
