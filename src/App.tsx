@@ -114,6 +114,7 @@ const Navbar = () => {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
+              <a href="#" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Home</a>
               <a href="#features" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Features</a>
               <a href="#compare" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Compare</a>
               <a href="#specs" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Specs</a>
@@ -139,6 +140,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-[#0B0C10] border-b border-slate-800">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
             <a href="#features" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
             <a href="#compare" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Comparison</a>
             <a href="#specs" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Specs</a>
