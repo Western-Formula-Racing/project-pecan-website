@@ -145,7 +145,7 @@ const Navbar = () => {
             <a href="#compare" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Comparison</a>
             <a href="#specs" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Specs</a>
               <a
-                href="https://westernformularacing.org/Sponsors"
+                href="https://www.westernconnect.ca/site/SPageNavigator/donation/give.html?NONCE_TOKEN=08853BC19A7AEC0FAC553043933F1F55&utm_source=redirect&designee=5882"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full block text-left mt-1 bg-gradient-to-r from-[#9333ea] to-[#ff0055] text-white px-3 py-2 rounded-md text-base font-medium skew-x-[-6deg]"
