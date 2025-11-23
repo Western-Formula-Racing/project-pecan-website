@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { 
   Wifi, 
   Zap, 
@@ -104,7 +104,7 @@ const Navbar = () => {
             {/* Logo styled like the image provided */}
             <div className="flex flex-col items-start">
                 <span className="text-white font-black text-xl tracking-tighter italic uppercase" style={{ fontFamily: 'Arial, sans-serif' }}>
-                    PROJECT <span className="text-[#ff0055]">PECAN</span>
+                    PROJECT <span className="text-[#9333ea]">PECAN</span>
                 </span>
                 <span className="text-[#9333ea] text-[0.6rem] tracking-[0.2em] font-bold uppercase">
                     A Western Formula Racing Open Source Project
@@ -114,7 +114,7 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <a href="#features" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Features</a>
-              <a href="#demo" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Dashboard</a>
+              <a href="#compare" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Compare</a>
               <a href="#specs" className="text-slate-300 hover:text-[#9333ea] px-3 py-2 rounded-md text-sm font-medium transition-colors uppercase tracking-wider">Specs</a>
               {/* Sponsor (same highlighted style as former Start Now button) */}
               <a
@@ -139,7 +139,7 @@ const Navbar = () => {
         <div className="md:hidden bg-[#0B0C10] border-b border-slate-800">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="#features" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
-            <a href="#demo" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Live Demo</a>
+            <a href="#compare" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Comparison</a>
             <a href="#specs" className="text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Specs</a>
               <a
                 href="https://westernformularacing.org/Sponsors"
@@ -160,6 +160,7 @@ const ConsoleAnimation = () => {
   const [lines, setLines] = useState<Array<{text: string, color: string, id: number}>>([]);
   const [connectionText, setConnectionText] = useState("");
   const [connectionStatus, setConnectionStatus] = useState<'hidden' | 'typing' | 'flashing' | 'connected'>('hidden');
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -187,21 +188,6 @@ const ConsoleAnimation = () => {
       if (!isMounted) return;
       setConnectionStatus('connected');
       setConnectionText("> CONNECTED: ws://192.168.4.1");
-
-      // Stream Data
-      const messages = [
-         { text: "> CAN_ID: 0x400 [DATA: 0A 2F 44 ...]", color: "text-slate-400" },
-         { text: "> CAN_ID: 0x401 [DATA: FF 00 12 ...]", color: "text-slate-400" },
-         { text: "> CAN_ID: 0x402 [DATA: 00 00 00 ...]", color: "text-slate-400" },
-         { text: "> CAN_ID: 0x400 [DATA: 0B 2F 45 ...]", color: "text-slate-400" },
-         { text: "> CAN_ID: 0x305 [DATA: AA BB CC ...]", color: "text-slate-400" },
-      ];
-
-      for (let i = 0; i < messages.length; i++) {
-        await new Promise(r => setTimeout(r, 600)); // Delay between messages
-        if (!isMounted) return;
-        setLines(prev => [...prev, { ...messages[i], id: i }]);
-      }
     };
 
     startSequence();
@@ -209,25 +195,62 @@ const ConsoleAnimation = () => {
     return () => { isMounted = false; };
   }, []);
 
+  // Continuous CAN message stream
+  useEffect(() => {
+    if (connectionStatus !== 'connected') return;
+
+    const canIds = ['0x400', '0x401', '0x402', '0x305', '0x500'];
+    const MAX_LINES = 8; // Keep buffer manageable
+    
+    const interval = setInterval(() => {
+      const randomId = canIds[Math.floor(Math.random() * canIds.length)];
+      const randomData = Array.from({ length: 3 }, () => 
+        Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0')
+      ).join(' ');
+      
+      setLines(prev => {
+        const newLine = {
+          text: `> CAN_ID: ${randomId} [DATA: ${randomData} ...]`,
+          color: "text-slate-400",
+          id: prev.length
+        };
+        // Keep only the last MAX_LINES messages
+        const updated = [...prev, newLine];
+        return updated.slice(-MAX_LINES);
+      });
+    }, 400);
+
+    return () => clearInterval(interval);
+  }, [connectionStatus]);
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [lines]);
+
   return (
-    <div className="col-span-2 bg-[#0B0C10] p-4 rounded border border-slate-800 h-32 overflow-hidden relative text-xs font-mono">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] to-transparent z-10 pointer-events-none"></div>
-        <div className="space-y-1 opacity-80 h-full overflow-y-auto">
-            {connectionStatus !== 'hidden' && (
-                 <div className={`${
-                    connectionStatus === 'connected' ? 'text-green-500' : 
-                    connectionStatus === 'flashing' ? 'text-yellow-500 animate-pulse' : 'text-yellow-500'
-                 }`}>
-                    {connectionText}
-                    {connectionStatus === 'typing' && <span className="animate-pulse">_</span>}
-                 </div>
-            )}
+    <div className="col-span-2 bg-[#0B0C10] p-4 rounded border border-slate-800 h-32 relative text-xs font-mono flex flex-col">
+        {/* Fixed connection status at top */}
+        {connectionStatus !== 'hidden' && (
+             <div className={`mb-1 ${
+                connectionStatus === 'connected' ? 'text-green-500' : 
+                connectionStatus === 'flashing' ? 'text-yellow-500 animate-pulse' : 'text-yellow-500'
+             }`}>
+                {connectionText}
+                {connectionStatus === 'typing' && <span className="animate-pulse">_</span>}
+             </div>
+        )}
+        {/* Scrollable message area */}
+        <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-1 opacity-80">
             {lines.map((line) => (
                 <div key={line.id} className={line.color + " animate-in slide-in-from-left-2 duration-300 fade-in"}>
                     {line.text}
                 </div>
             ))}
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#0B0C10] to-transparent pointer-events-none"></div>
     </div>
   );
 };
@@ -235,7 +258,7 @@ const ConsoleAnimation = () => {
 const LiveDashboard = () => {
   const [rpm, setRpm] = useState(8450);
   const [temp, setTemp] = useState(42.5);
-  const [soc, setSoc] = useState(88);
+  const [throttle, setThrottle] = useState(88);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -251,10 +274,16 @@ const LiveDashboard = () => {
          return Number((Math.max(40, Math.min(45, prev + delta))).toFixed(1));
       });
       
-      // SOC slightly fluctuates or drops rarely
-      setSoc(prev => {
-         if (Math.random() > 0.98) return Math.max(0, prev - 1); 
-         return prev;
+      // Throttle correlates with RPM and temp
+      setThrottle(() => {
+         // Base throttle on RPM (normalized to 0-100%)
+         const rpmFactor = ((rpm - 8200) / (8700 - 8200)) * 60;
+         // Add temperature influence (higher temp = more throttle)
+         const tempFactor = ((temp - 40) / (45 - 40)) * 30;
+         // Slight random variation
+         const randomFactor = (Math.random() * 10) - 5;
+         const newThrottle = Math.round(Math.max(0, Math.min(100, rpmFactor + tempFactor + randomFactor)));
+         return newThrottle;
       });
 
     }, 200);
@@ -300,8 +329,8 @@ const LiveDashboard = () => {
 
                 {/* Stat Box 2 */}
                 <div className="bg-[#0B0C10] p-4 rounded border border-slate-800">
-                    <div className="text-slate-500 text-xs uppercase mb-1">SOC</div>
-                    <div className="text-2xl font-bold text-blue-400">{soc}%</div>
+                    <div className="text-slate-500 text-xs uppercase mb-1">Throttle Input</div>
+                    <div className="text-2xl font-bold text-blue-400">{throttle}%</div>
                 </div>
 
                  {/* Console Log */}
@@ -461,11 +490,11 @@ const Features = () => {
 
 const Comparison = () => {
   return (
-    <div className="py-24 bg-[#15161c]">
+    <div id="compare" className="py-24 bg-[#15161c]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center mb-12">
           <h2 className="text-3xl font-black uppercase italic text-white sm:text-4xl">
-            Pecan <span className="text-slate-600 text-2xl not-italic align-middle px-2">vs</span> Legacy
+            LEGACY <span className="text-slate-600 text-2xl not-italic align-middle px-2">vs</span> PECAN
           </h2>
         </div>
 
