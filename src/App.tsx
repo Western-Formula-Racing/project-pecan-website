@@ -459,12 +459,18 @@ const Hero = () => {
             <span className="text-[#9333ea]"> The new standard for FSAE & Automotive testing.</span>
           </p>
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-            <button className="group relative px-8 py-4 bg-gradient-to-r from-[#9333ea] to-[#ff0055] hover:from-[#7e22ce] hover:to-[#d90049] text-white text-lg font-bold shadow-[0_0_20px_rgba(147,51,234,0.3)] transition-all overflow-hidden skew-x-[-10deg]">
-              <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out skew-x-[10deg]"></div>
-              <span className="flex items-center justify-center skew-x-[10deg] uppercase">
-                Initialize System <ArrowRight className="ml-2 h-5 w-5" />
-              </span>
-            </button>
+            <a
+              href="https://pecan-demo.0001200.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="group relative px-8 py-4 bg-gradient-to-r from-[#9333ea] to-[#ff0055] hover:from-[#7e22ce] hover:to-[#d90049] text-white text-lg font-bold shadow-[0_0_20px_rgba(147,51,234,0.3)] transition-all overflow-hidden skew-x-[-10deg]">
+                <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out skew-x-[10deg]"></div>
+                <span className="flex items-center justify-center skew-x-[10deg] uppercase">
+                  Initialize System <ArrowRight className="ml-2 h-5 w-5" />
+                </span>
+              </button>
+            </a>
             <button className="px-8 py-4 bg-transparent hover:bg-slate-800/50 text-slate-300 rounded-sm font-bold text-lg border border-slate-700 hover:border-[#9333ea] transition-all flex items-center justify-center skew-x-[-10deg]">
               <span className="flex items-center justify-center skew-x-[10deg] uppercase">
                 <Github className="mr-2 h-5 w-5" /> Source Code
