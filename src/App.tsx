@@ -471,11 +471,17 @@ const Hero = () => {
                 </span>
               </button>
             </a>
-            <button className="px-8 py-4 bg-transparent hover:bg-slate-800/50 text-slate-300 rounded-sm font-bold text-lg border border-slate-700 hover:border-[#9333ea] transition-all flex items-center justify-center skew-x-[-10deg]">
-              <span className="flex items-center justify-center skew-x-[10deg] uppercase">
-                <Github className="mr-2 h-5 w-5" /> Source Code
-              </span>
-            </button>
+            <a
+              href="https://github.com/Western-Formula-Racing/daq-radio"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="px-8 py-4 bg-transparent hover:bg-slate-800/50 text-slate-300 rounded-sm font-bold text-lg border border-slate-700 hover:border-[#9333ea] transition-all flex items-center justify-center skew-x-[-10deg]">
+                <span className="flex items-center justify-center skew-x-[10deg] uppercase">
+                  <Github className="mr-2 h-5 w-5" /> Source Code
+                </span>
+              </button>
+            </a>
           </div>
         </div>
         
