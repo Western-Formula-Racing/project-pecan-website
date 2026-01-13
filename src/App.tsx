@@ -460,7 +460,7 @@ const Hero = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
             <a
-              href="http://pecan-demo.0001200.xyz/dashboard"
+              href="https://western-formula-racing.github.io/daq-radio/dashboard"
               target="_blank"
               rel="noopener noreferrer"
             >
