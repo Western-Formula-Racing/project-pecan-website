@@ -333,7 +333,7 @@ const LiveDashboard = () => {
               <div className="flex items-center space-x-4">
                  <span className="text-[#ff0055] font-bold uppercase tracking-widest text-xs">Diagnostic Dashboard</span>
                  <div className="h-4 w-[1px] bg-slate-700"></div>
-                 <span className="text-slate-500 text-xs font-mono">ESP32_CLIENT_01</span>
+                 <span className="text-slate-500 text-xs font-mono">CAN_CLIENT_01</span>
               </div>
               <div className="flex space-x-1">
                 <div className="w-2 h-2 rounded-full bg-slate-700"></div>
@@ -455,7 +455,7 @@ const Hero = () => {
           </h1>
           <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0 font-mono">
             Project Pecan provides an open source alternative to existing CAN diagnostic hardware. 
-            ESP32-powered. React-based. WebSocket streaming. 
+            Hardware-agnostic. React-based. WebSocket streaming. 
             <span className="text-[#9333ea]"> The new standard for FSAE & Automotive testing.</span>
           </p>
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
@@ -523,8 +523,8 @@ const Features = () => {
     {
       icon: Wifi,
       title: "True Wireless",
-      desc: "ESP32-powered telemetry. Analyze data without cables.",
-      fullDesc: "Utilizing the ESP32's dual-core architecture, Project Pecan creates a dedicated high-bandwidth WiFi Access Point. Connect your laptop or tablet directly to the car's network. We've tested stable streaming at ranges up to 50 meters in noisy RF environments, perfect for pit lane diagnostics or dyno runs."
+      desc: "Wireless telemetry. Analyze data without cables.",
+      fullDesc: "Project Pecan supports various CAN-capable devices (ESP32, Raspberry Pi, etc.) to create a dedicated high-bandwidth WiFi Access Point. Connect your laptop or tablet directly to the car's network. We've tested stable streaming at ranges up to 50 meters in noisy RF environments, perfect for pit lane diagnostics or dyno runs."
     },
     {
       icon: Globe,
@@ -536,13 +536,13 @@ const Features = () => {
       icon: Zap,
       title: "WebSocket Stream",
       desc: "Ultra-low latency binary protocol for high-frequency bus loads.",
-      fullDesc: "We don't just send JSON. We use a packed binary WebSocket protocol to ensure minimal overhead. This allows Project Pecan to visualize high-speed CAN buses (500kbps, 1Mbps) with minimal frame drops. CAN frames are decoaded in the browser, freeing up the ESP32's resources."
+      fullDesc: "We don't just send JSON. We use a packed binary WebSocket protocol to ensure minimal overhead. This allows Project Pecan to visualize high-speed CAN buses (500kbps, 1Mbps) with minimal frame drops. CAN frames are decoded in the browser, freeing up the host device's resources."
     },
     {
       icon: Terminal,
       title: "Open Firmware",
       desc: "Fully customizable frontend and firmware. Add your own filters and protocols.",
-      fullDesc: "We provide the full source code for both the frontend and firmware. Need to implement a custom ISO-TP transport layer? Need to filter specific IDs at the hardware level to save bandwidth? Fork the repo, flash the ESP32, and make it yours."
+      fullDesc: "We provide the full source code for both the frontend and firmware. Need to implement a custom ISO-TP transport layer? Need to filter specific IDs at the hardware level to save bandwidth? Fork the repo, flash your device, and make it yours."
     },
     {
       icon: Monitor,
@@ -554,7 +554,7 @@ const Features = () => {
       icon: Cpu,
       title: "Low Cost BOM",
       desc: "Under $50 Bill of Materials. Accessible for every team member.",
-      fullDesc: "Traditional analyzers cost hundreds or thousands of dollars, limiting how many a team can own. Project Pecan uses off-the-shelf components: an ESP32 dev board and a SN65HVD230 transceiver. The total cost is often less than a team lunch, meaning every sub-team can have their own dedicated analyzer."
+      fullDesc: "Traditional analyzers cost hundreds or thousands of dollars, limiting how many a team can own. Project Pecan uses off-the-shelf components: a CAN-capable device (ESP32, Raspberry Pi, etc.) and a CAN transceiver. The total cost is often less than a team lunch, meaning every sub-team can have their own dedicated analyzer."
     }
   ];
 
@@ -671,8 +671,8 @@ const TechnicalSpecs = () => {
             
             <div className="space-y-6 font-mono">
               <div className="border-l-2 border-[#9333ea] pl-4">
-                <h4 className="text-white font-bold text-sm uppercase tracking-wider">MCU</h4>
-                <p className="text-slate-400">ESP32-WROOM-32E (Dual Core 240MHz)</p>
+                <h4 className="text-white font-bold text-sm uppercase tracking-wider">Host Device</h4>
+                <p className="text-slate-400">ESP32, Raspberry Pi, or similar CAN-capable device</p>
               </div>
               <div className="border-l-2 border-slate-700 pl-4 hover:border-[#9333ea] transition-colors">
                 <h4 className="text-white font-bold text-sm uppercase tracking-wider">Transceiver</h4>
